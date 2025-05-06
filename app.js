@@ -5,6 +5,7 @@ const app = express()
 const Mongoose=require ("mongoose")
 const {MONGOURI} = require("./valuekeys")
 Mongoose.connect(MONGOURI)
+app.use(express.json());
 
 app.use("/",route)
 
@@ -14,7 +15,7 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", (err) => {
     console.log("error while connecting to mongo i.e Mongo DB",err)
 })
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))

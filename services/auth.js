@@ -30,8 +30,20 @@ const getUserById = async (req, res) => {
     console.log("user", user)
     return user 
 }
+const deleteUser = async (req, res) => {
+    const user= await User.findByIdAndDelete(req.params.id)
+    return user
+}
+
+const updateUser = async (req, res) => {
+    const user= await User.findByIdAndUpdate(req.params.id, req.body,{ new: true })
+    if(!user) return res.status(404).send({ message: "users not found" })
+    return {user}
+}
 module.exports = {
     createUser,
     getUsers,
-    getUserById
+    getUserById,
+    deleteUser,
+    updateUser
 };

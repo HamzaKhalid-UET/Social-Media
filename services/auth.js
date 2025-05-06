@@ -28,17 +28,17 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     const user = await User.findById(req.params.id)
     console.log("user", user)
-    return user 
+    return user
 }
 const deleteUser = async (req, res) => {
-    const user= await User.findByIdAndDelete(req.params.id)
+    const user = await User.findByIdAndDelete(req.params.id)
     return user
 }
 
 const updateUser = async (req, res) => {
-    const user= await User.findByIdAndUpdate(req.params.id, req.body,{ new: true })
-    if(!user) return res.status(404).send({ message: "users not found" })
-    return {user}
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    if (!user) return res.status(404).send({ message: "users not found" })
+    return { user }
 }
 module.exports = {
     createUser,

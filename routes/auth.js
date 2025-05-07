@@ -1,5 +1,6 @@
-const express = require("express")
-const { createUserController, getUserController, getUserByIdController, deleteUserByIdController, updateUserController, loginUserController } = require("../controllers/auth")
+import express from "express";
+import { authController } from '../controllers/auth.js';
+const { createUserController, getUserController, getUserByIdController, deleteUserByIdController, updateUserController, loginUserController } = authController
 const route = express.Router()
 route.get("/", (req, res) => {
     console.log("hello")
@@ -15,4 +16,4 @@ route.post("/login",loginUserController)
 
 
 
-module.exports = route
+export default route;

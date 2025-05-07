@@ -1,7 +1,5 @@
-const { createUser, getUsers, getUserById, deleteUser, updateUser, loginUser } = require("../services/auth")
-
-
-
+import { authService } from '../services/auth.js';
+const { createUser, getUsers, getUserById, deleteUser, updateUser, loginUser } = authService;
 
 const createUserController = async (req, res) => {
     const user = await createUser(req, res);
@@ -44,11 +42,11 @@ const loginUserController = async (req, res) => {
         }
     });
 }
-module.exports = {
+export const authController = {
     createUserController,
     getUserController,
     getUserByIdController,
     deleteUserByIdController,
     updateUserController,
     loginUserController
-}
+  };

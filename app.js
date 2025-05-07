@@ -1,8 +1,12 @@
-require("dotenv").config();
-const express = require("express")
-const route = require("./routes/auth")
+// require("dotenv").config();
+import "dotenv/config";
+import express from "express";
+import route from "./routes/auth.js";
+import Mongoose from "mongoose";
+// const express = require("express")
+// const route = require("./routes/auth")
 const app = express()
-const Mongoose = require("mongoose")
+// const Mongoose = require("mongoose")
 const MONGOURI = process.env.MONGOURI
 
 

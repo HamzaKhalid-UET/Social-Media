@@ -10,8 +10,9 @@ const createUser = async (req, res) => {
         if (!name || !email || !password) {
             return res.status(400).send({ error: "Please fill all the fields" })
         }
-
-        const user = await User.create({ name, email, password });
+        const password1 = await bcrypt.hash(password, 10)
+        console.log("password1", password1)
+        const user = await User.create({ name, email, password1 });
         console.log("user", user);
         return { user }
     } catch (error) {

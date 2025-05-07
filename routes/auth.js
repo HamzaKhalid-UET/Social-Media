@@ -1,5 +1,5 @@
 const express = require("express")
-const { createUserController, getUserController, getUserByIdController, deleteUserByIdController, updateUserController } = require("../controllers/auth")
+const { createUserController, getUserController, getUserByIdController, deleteUserByIdController, updateUserController, loginUserController } = require("../controllers/auth")
 const route = express.Router()
 route.get("/", (req, res) => {
     console.log("hello")
@@ -11,6 +11,8 @@ route.get("/getusers", getUserController)
 route.get("/getuserbyid/:id", getUserByIdController)
 route.delete("/deleteuser/:id", deleteUserByIdController)
 route.put("/updateuser/:id", updateUserController)
+route.post("/login",loginUserController)
+
 
 
 module.exports = route

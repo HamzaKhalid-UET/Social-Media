@@ -2,11 +2,10 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from '../schema/User.js';
 import bcrypt from 'bcrypt';
-
 passport.use(new LocalStrategy(
     {
-        usernameField: 'email',  // Use 'email' instead of 'username'
-        passwordField: 'password',  // Ensure 'password' is the correct field
+        usernameField: 'email', 
+        passwordField: 'password',  
     },
     async (email, password, done) => {
         try {

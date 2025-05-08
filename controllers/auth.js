@@ -1,5 +1,8 @@
+import passport from 'passport';
 import { authService } from '../services/auth.js';
 const { createUser, getUsers, getUserById, deleteUser, updateUser, loginUser } = authService;
+import jwt from 'jsonwebtoken';
+const SECRET_KEY = process.env.SECRET_KEY
 
 const createUserController = async (req, res) => {
     const user = await createUser(req, res);
@@ -29,19 +32,51 @@ const updateUserController = async (req, res) => {
     if (!users) return res.status(404).send({ message: "users not found" })
     res.status(200).send({ message: "user updated successfully", users });
 }
-const loginUserController = async (req, res) => {
-    const user = await loginUser(req, res)
-    if (!user) return res.status(404).send({ message: "user not found" })
+// const loginUserController = async (req, res) => {
+//     const user = await loginUser(req, res)
+//     if (!user) return res.status(404).send({ message: "user not found" })
 
-    res.status(200).json({
-        message: "Login successful",
-        user: {
-            name: user.user.name,
-            email: user.user.email,
-            token: user.refreshToken
+//     res.status(200).json({
+//         message: "Login successful",
+//         user: {
+//             name: user.user.name,
+//             email: user.user.email,
+//             token: user.accessToken
+//         }
+//     });
+// } 
+
+const loginUserController = async (req, res, next) => {
+    
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return res.status(500).json({ message: 'Server error', error: err.message });
         }
-    });
-}
+
+        if (!user) {
+            return res.status(401).json({
+                message: info?.message || 'Invalid credentials',
+            });
+        }
+
+        // If user is authenticated, you can generate a token
+        // Assuming you are using JWT for token generation
+        //   const accessToken = user.generateAuthToken();
+        const accessToken = jwt.sign({ user: user._id }, SECRET_KEY, { expiresIn: 1500 })
+
+        // Assuming you have a method to generate token in your User model
+
+        // Respond with the user's info and token
+        return res.status(200).json({
+            message: 'Login successful',
+            user: {
+                name: user.name,
+                email: user.email,
+            },
+            token: accessToken,
+        });
+    })(req, res, next);
+};
 export const authController = {
     createUserController,
     getUserController,
@@ -49,4 +84,4 @@ export const authController = {
     deleteUserByIdController,
     updateUserController,
     loginUserController
-  };
+};

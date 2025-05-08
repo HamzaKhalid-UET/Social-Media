@@ -8,6 +8,7 @@ import Mongoose from "mongoose";
 const app = express()
 // const Mongoose = require("mongoose")
 const MONGOURI = process.env.MONGOURI
+import './config/passport.js';
 
 
 
@@ -21,7 +22,7 @@ Mongoose.connection.on("connected", () => {
     console.log("we are connected to mongo i.e Mongo DB")
 })
 Mongoose.connection.on("error", (err) => {
-    console.log("error while connecting to mongo i.e Mongo DB",err)
+    console.log("error while connecting to mongo i.e Mongo DB", err)
 })
 
 const PORT = process.env.PORT || 3001

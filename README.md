@@ -19,3 +19,10 @@ This is a backend project for a simple social media application built with **Nod
 - Postman (for testing APIs)
 - dotenv
 
+## 🛠 Package Manager
+
+- NPM 
+- NPM Start
+
+
+

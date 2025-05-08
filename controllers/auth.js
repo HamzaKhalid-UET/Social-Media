@@ -47,7 +47,7 @@ const updateUserController = async (req, res) => {
 // } 
 
 const loginUserController = async (req, res, next) => {
-    
+
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return res.status(500).json({ message: 'Server error', error: err.message });
@@ -59,14 +59,10 @@ const loginUserController = async (req, res, next) => {
             });
         }
 
-        // If user is authenticated, you can generate a token
-        // Assuming you are using JWT for token generation
-        //   const accessToken = user.generateAuthToken();
+
         const accessToken = jwt.sign({ user: user._id }, SECRET_KEY, { expiresIn: 1500 })
 
-        // Assuming you have a method to generate token in your User model
 
-        // Respond with the user's info and token
         return res.status(200).json({
             message: 'Login successful',
             user: {
